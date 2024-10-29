@@ -1,11 +1,15 @@
 import { useState } from "react";
-import "./App.css";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Card from "./components/Card";
 
 function App() {
+  const [isLoading, setIsLoading] = useState(false);
   const [postUrl, setPostUrl] = useState("");
   const [comments, setComments] = useState([]);
 
   const fetchComments = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(import.meta.env.VITE_API_URL + "/comments", {
         method: "POST",
@@ -17,30 +21,41 @@ function App() {
       const data = await response.json();
 
       setComments(data.comments);
+
+      toast.success("Success ! ");
     } catch (error) {
       console.error("Error fetching comments:", error);
+      toast.error("Something went wrong");
     }
+    setIsLoading(false);
   };
 
-  return (
-    <div className="App">
-      <h1>TikTok comment scraper</h1>
-      <input
-        type="text"
-        value={postUrl}
-        onChange={(e) => setPostUrl(e.target.value)}
-      />
-      <button onClick={fetchComments}>Fetch Comments</button>
+  const handleReset = () => {
+    setComments([]);
+    setPostUrl(false);
+  }
 
-      <div>
-        <h2>Comments:</h2>
-        <ul>
-          {comments.map((comment, index) => (
-            <li key={index}>{comment}</li>
-          ))}
-        </ul>
+  const handleCopy = () => {
+    //
+  }
+
+  return (
+    <>
+      <ToastContainer />
+      <div className="w-full h-screen flex flex-col justify-center items-center">
+        <div className="container">
+          <Card
+            comments={comments}
+            isLoading={isLoading}
+            fetchComments={fetchComments}
+            postUrl={postUrl}
+            setPostUrl={setPostUrl}
+            handleReset={handleReset}
+            handleCopy={handleCopy}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -48,19 +48,21 @@ const Card = ({
           </button>
         </div>
       </div>
-      <div className="w-full max-h-[500px] overflow-scroll">
-        <div className="border p-3 rounded-md mt-3">
-          {comments.length > 0 ? (
-            <ul>
-              {comments.map((comment, index) => (
-                <li key={index}>{comment}</li>
-              ))}
-            </ul>
-          ) : (
-            <div>No comments found</div>
-          )}
+      <dir className="border rounded-lg">
+        <div className=" max-h-[500px] overflow-scroll scroll-smooth overflow-x-hidden">
+          <div className="p-3 rounded-md mt-3">
+            {comments.length > 0 ? (
+              <ul>
+                {comments.map((comment, index) => (
+                  <li key={index}>{comment}</li>
+                ))}
+              </ul>
+            ) : (
+              <div>No comments found</div>
+            )}
+          </div>
         </div>
-      </div>
+      </dir>
     </div>
   );
 };

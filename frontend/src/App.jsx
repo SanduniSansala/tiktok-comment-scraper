@@ -22,7 +22,7 @@ function App() {
 
       setComments(data.comments);
 
-      toast.success("Success ! ");
+      toast.success("Success");
     } catch (error) {
       console.error("Error fetching comments:", error);
       toast.error("Something went wrong");
@@ -33,11 +33,20 @@ function App() {
   const handleReset = () => {
     setComments([]);
     setPostUrl(false);
-  }
+  };
 
-  const handleCopy = () => {
-    //
-  }
+  const handleCopy = async () => {
+    if (comments) {
+      try {
+        await navigator.clipboard.writeText(comments);
+        toast.success("copied");
+      } catch (err) {
+        toast.error("Failed to copy");
+      }
+    } else {
+      toast.error("Nothing to copy");
+    }
+  };
 
   return (
     <>

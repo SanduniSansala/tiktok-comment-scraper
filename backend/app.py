@@ -1,6 +1,5 @@
 import os
 from flask import Flask, request, jsonify
-import requests, json
 from flask_cors import CORS
 from script2 import Script
 from dotenv import load_dotenv
@@ -19,8 +18,6 @@ def get_comments():
     script = Script(post_url)
 
     comments = script.getComments()
-
-    # comments = ["comment 1", "comment 2"]
 
     return jsonify({'comments': comments})
 

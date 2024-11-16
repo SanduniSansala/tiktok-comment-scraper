@@ -1,4 +1,5 @@
 import requests,json
+from urllib.parse import urlparse
 
 class Script:
 
@@ -10,10 +11,8 @@ class Script:
         self.post_url = post_url
         
         global post_id
-        post_id = post_url.split('/')[-1]
-
-        # global comments
-        # self.comments.append({'post_url': post_url})
+        path = urlparse(post_url).path
+        post_id = path.split('/')[-1]  # Get the last part of the path
     
     def req(self, post_id, curs):
         
@@ -71,7 +70,9 @@ class Script:
         print(self.comments)
         
         # Write json file
-        with open ('comments.json', 'w', encoding='utf-8') as f:
+        with open('comments.json', 'w+', encoding='utf-8') as f:
+            f.seek(0)
+            f.truncate()
             json.dump(self.comments, f, ensure_ascii=False, indent=4)
 
         return self.comments

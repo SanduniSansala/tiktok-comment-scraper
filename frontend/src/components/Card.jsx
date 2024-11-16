@@ -20,6 +20,7 @@ const Card = ({
           type="text"
           value={postUrl}
           onChange={(e) => setPostUrl(e.target.value)}
+          placeholder="Enter Post URL"
         />
         <button
           className="text-center w-1/3 bg-blue-500 rounded-r-md text-white text-lg font-bold disabled:bg-blue-300 "

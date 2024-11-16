@@ -9,6 +9,10 @@ function App() {
   const [comments, setComments] = useState([]);
 
   const fetchComments = async () => {
+    if (!postUrl) {
+      toast.error("Url Required");
+      return;
+    }
     setIsLoading(true);
     try {
       const response = await fetch(import.meta.env.VITE_API_URL + "/comments", {
@@ -32,7 +36,7 @@ function App() {
 
   const handleReset = () => {
     setComments([]);
-    setPostUrl(false);
+    setPostUrl("");
   };
 
   const handleCopy = async () => {

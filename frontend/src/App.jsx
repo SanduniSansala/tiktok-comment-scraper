@@ -10,8 +10,9 @@ function App() {
 
   const fetchComments = async () => {
     if (!postUrl) {
-      toast.error("Url Required");
+      toast.error("Url Required ");
       return;
+      
     }
     setIsLoading(true);
     try {
